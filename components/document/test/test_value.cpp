@@ -68,9 +68,17 @@ TEST_CASE("value_t") {
     SECTION("Check type") {
         REQUIRE(impl::new_value(10000ul)->is_unsigned());
         REQUIRE(impl::new_value(10000)->is_int());
-        //REQUIRE(impl::new_value(10ul)->is_unsigned()); //todo
-        REQUIRE(impl::new_value(10ul)->is_int());
+        REQUIRE(impl::new_value(-10000)->is_int());
+        REQUIRE(impl::new_value(10ul)->is_unsigned());
         REQUIRE(impl::new_value(10)->is_int());
+        REQUIRE(impl::new_value(-10)->is_int());
+
+        REQUIRE(impl::new_value(10000ul)->as_unsigned() == 10000ul);
+        REQUIRE(impl::new_value(10000)->as_int() == 10000);
+        REQUIRE(impl::new_value(-10000)->as_int() == -10000);
+        REQUIRE(impl::new_value(10ul)->as_unsigned() == 10ul);
+        REQUIRE(impl::new_value(10)->as_int() == 10);
+        REQUIRE(impl::new_value(-10)->as_int() == -10);
     }
 
     SECTION("Pointers") {

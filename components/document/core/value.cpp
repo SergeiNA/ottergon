@@ -128,7 +128,8 @@ namespace document::impl {
     }
 
     bool value_t::is_unsigned() const noexcept {
-        return tag() == internal::tag_int && (byte_[0] & 0x08) != 0;
+        return (tag() == internal::tag_int && (byte_[0] & 0x08) != 0) ||
+               (tag() == internal::tag_short && (byte_[1] & 0x08) != 0);
     }
 
     bool value_t::is_double() const noexcept {

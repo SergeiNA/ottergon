@@ -67,7 +67,7 @@ namespace document::impl::internal {
     heap_value_t* heap_value_t::create_int(INT i, bool is_unsigned) {
         if (i < 2048 && (is_unsigned || -i < 2048)) {
             uint8_t extra = uint8_t(i & 0xFF);
-            return create(tag_short, (i >> 8) & 0x0F, std::string_view(reinterpret_cast<const char*>(&extra), 1));
+            return create(tag_short, ((i >> 8) & 0x0F) | (is_unsigned ? 0x0800 : 0), std::string_view(reinterpret_cast<const char*>(&extra), 1));
         } else {
             uint8_t buf[8];
             auto size = put_int_of_length(buf, int64_t(i), is_unsigned);
